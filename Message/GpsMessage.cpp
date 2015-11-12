@@ -4,6 +4,6 @@
 GpsMessage::GpsMessage()
         : Message(GPS_MESSAGE_TYPE) {
     payloadSize = (uint8_t) sizeof(_payload);
-    flags = SNP_GPS_MESSAGE_FLAGS;
+    flags = NAVIGATION_PROTOCOL_GPS_MESSAGE_FLAGS;
     payload = (uint8_t *) &_payload;
 }

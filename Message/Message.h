@@ -1,5 +1,3 @@
-#include <stdint.h>
-
 /**
  * -----------------------------------------
  * |TT|FF|SS|PP...PP|CCCC|
@@ -21,16 +19,18 @@
  * C = checksum only of the payload
  */
 
-#ifndef SIMPLE_NAVIGATION_PROTOCOL_MESSAGE
-#define SIMPLE_NAVIGATION_PROTOCOL_MESSAGE
+#ifndef NAVIGATION_PROTOCOL_MESSAGE
+#define NAVIGATION_PROTOCOL_MESSAGE
 
-#define SNP_MESSAGE_HEADER_SIZE          3
-#define SNP_MESSAGE_CHECKSUM_SIZE        2
+#include <stdint.h>
 
-#define SNP_MESSAGE_TYPE_OFFSET          0
-#define SNP_MESSAGE_FLAG_OFFSET          1
-#define SNP_MESSAGE_PAYLOAD_SIZE_OFFSET  2
-#define SNP_MESSAGE_PAYLOAD_OFFSET       3
+#define NAVIGATION_PROTOCOL_MESSAGE_HEADER_SIZE          3
+#define NAVIGATION_PROTOCOL_MESSAGE_CHECKSUM_SIZE        2
+
+#define NAVIGATION_PROTOCOL_MESSAGE_TYPE_OFFSET          0
+#define NAVIGATION_PROTOCOL_MESSAGE_FLAG_OFFSET          1
+#define NAVIGATION_PROTOCOL_MESSAGE_PAYLOAD_SIZE_OFFSET  2
+#define NAVIGATION_PROTOCOL_MESSAGE_PAYLOAD_OFFSET       3
 
 class Message {
 
@@ -77,4 +77,4 @@ public:
     uint16_t computeChecksum(uint8_t* buf);
 };
 
-#endif // SIMPLE_NAVIGATION_PROTOCOL_MESSAGE
+#endif // NAVIGATION_PROTOCOL_MESSAGE
