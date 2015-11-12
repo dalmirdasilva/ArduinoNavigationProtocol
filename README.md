@@ -1,1 +1,1 @@
-# ArduinoSimpleNavigationProtocol
+# ArduinoNavigationProtocol
