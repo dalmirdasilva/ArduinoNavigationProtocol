@@ -1,12 +1,12 @@
 #include "NavigationProtocol.h"
 #include <Stream.h>
 
-NavigationProtocol::NavigationProtocol(Stream *stream)
-        : stream(stream), connected(false), fn(0) {
+NavigationProtocol::NavigationProtocol(Stream *stream) :
+        stream(stream), connected(false), fn(0) {
 }
 
-NavigationProtocol::NavigationProtocol(Stream *stream, void (*fn)(Message *message))
-    : stream(stream), connected(false), fn(fn) {
+NavigationProtocol::NavigationProtocol(Stream *stream, void (*fn)(Message *message)) :
+        stream(stream), connected(false), fn(fn) {
 }
 
 uint8_t NavigationProtocol::connect() {

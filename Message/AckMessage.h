@@ -5,9 +5,10 @@
 
 #define NAVIGATION_PROTOCOL_ACK_MESSAGE_FLAGS           0x00
 
-class AckMessage : public Message {
+class AckMessage: public Message {
 
-    struct AckMessagePayload {
+    struct Payload {
+        uint8_t at;
     } _payload;
 
 public:

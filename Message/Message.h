@@ -24,6 +24,8 @@
 
 #include <stdint.h>
 
+#define NAVIGATION_PROTOCOL_MESSAGE_FLAG_NEED_ACK        0x01
+
 #define NAVIGATION_PROTOCOL_MESSAGE_HEADER_SIZE          3
 #define NAVIGATION_PROTOCOL_MESSAGE_CHECKSUM_SIZE        2
 
@@ -47,14 +49,11 @@ protected:
 public:
 
     enum UnpackResult {
-        UNPACK_SUCCESS = 0,
-        UNPACK_CHECKSUM_MISMATCH = 1
+        UNPACK_SUCCESS = 0, UNPACK_CHECKSUM_MISMATCH = 1
     };
 
     enum Type {
-        ACK_MESSAGE_TYPE = 1,
-        GPS_MESSAGE_TYPE = 2,
-        GYROSCOPE_MESSAGE_TYPE = 3
+        ACK_MESSAGE_TYPE = 1, GPS_MESSAGE_TYPE = 2, GYROSCOPE_MESSAGE_TYPE = 3, SYS_STATUS_MESSAGE_TYPE = 4, RC_RAW_MESSAGE_TYPE = 5
     };
 
     Message(uint8_t type);
@@ -65,6 +64,12 @@ public:
 
     void pack(uint8_t *buf);
 
+    /**
+     * Serializes the instance data into the buf array.
+     *
+     * @param buf   The buffer where the instance data will be placed in.
+     * @return      UnpackResult
+     */
     uint8_t unpack(uint8_t *buf);
 
     /**

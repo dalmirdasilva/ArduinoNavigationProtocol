@@ -1,8 +1,8 @@
 #include "Message.h"
 #include <string.h>
 
-Message::Message(uint8_t type)
-        : type(type), flags(0), payload(0), payloadSize(0) {
+Message::Message(uint8_t type) :
+        type(type), flags(0), payload(0), payloadSize(0) {
 }
 
 Message::~Message() {
@@ -18,13 +18,15 @@ void Message::pack(uint8_t *buf) {
     buf[NAVIGATION_PROTOCOL_MESSAGE_FLAG_OFFSET] = flags;
     buf[NAVIGATION_PROTOCOL_MESSAGE_PAYLOAD_SIZE_OFFSET] = payloadSize;
     memcpy(&buf[NAVIGATION_PROTOCOL_MESSAGE_PAYLOAD_OFFSET], this->payload, payloadSize);
-    memcpy(&buf[NAVIGATION_PROTOCOL_MESSAGE_PAYLOAD_OFFSET + payloadSize], (uint8_t*) sum, NAVIGATION_PROTOCOL_MESSAGE_CHECKSUM_SIZE);
+    memcpy(&buf[NAVIGATION_PROTOCOL_MESSAGE_PAYLOAD_OFFSET + payloadSize], (uint8_t*) sum,
+    NAVIGATION_PROTOCOL_MESSAGE_CHECKSUM_SIZE);
 }
 
 uint8_t Message::unpack(uint8_t *buf) {
     uint16_t sum, computedSum = computeChecksum(&buf[NAVIGATION_PROTOCOL_MESSAGE_PAYLOAD_OFFSET]);
     memcpy(this->payload, &buf[NAVIGATION_PROTOCOL_MESSAGE_PAYLOAD_OFFSET], payloadSize);
-    memcpy((uint8_t*) &sum, &buf[NAVIGATION_PROTOCOL_MESSAGE_PAYLOAD_OFFSET + payloadSize], NAVIGATION_PROTOCOL_MESSAGE_CHECKSUM_SIZE);
+    memcpy((uint8_t*) &sum, &buf[NAVIGATION_PROTOCOL_MESSAGE_PAYLOAD_OFFSET + payloadSize],
+    NAVIGATION_PROTOCOL_MESSAGE_CHECKSUM_SIZE);
     if (computedSum != sum) {
         return UNPACK_CHECKSUM_MISMATCH;
     }
