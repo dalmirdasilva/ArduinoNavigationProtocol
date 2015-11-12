@@ -1,12 +1,12 @@
 #include "../Message/Message.h"
-#include "../Message/GyroscopeMessage.h"
+#include "../Message/RCRawMessage.h"
 #include <stdio.h>
 
 int main() {
     int i = 0;
-    GyroscopeMessage m = GyroscopeMessage();
+    RCRawMessage m = RCRawMessage();
     unsigned char buf[m.getLength()];
-    m.pack(buf);
+    //m.pack(buf);
     printf("%d\n", m.getLength());
     for (; i < m.getLength(); i++) {
         printf("%d\n", buf[i]);
