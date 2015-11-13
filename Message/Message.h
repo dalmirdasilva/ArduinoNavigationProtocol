@@ -49,7 +49,7 @@ protected:
 public:
 
     enum UnpackResult {
-        UNPACK_SUCCESS = 0, UNPACK_CHECKSUM_MISMATCH = 1
+        UNPACK_SUCCESS = 0, UNPACK_CHECKSUM_MISMATCH = 1, UNPACK_TYPE_MISMATCH = 2
     };
 
     enum Type {
@@ -60,26 +60,19 @@ public:
 
     virtual ~Message();
 
-    uint8_t getType();
+    uint8_t getType() const;
 
-    void pack(uint8_t *buf);
+    uint8_t getFlags() const;
 
-    /**
-     * Serializes the instance data into the buf array.
-     *
-     * @param buf   The buffer where the instance data will be placed in.
-     * @return      UnpackResult
-     */
+    void setFlags(uint8_t flags);
+
+    void pack(uint8_t *buf) const;
+
     uint8_t unpack(uint8_t *buf);
 
-    /**
-     * The message length in bytes.
-     *
-     * Header + payload + checksum.
-     */
-    uint8_t getLength();
+    uint8_t getLength() const;
 
-    uint16_t computeChecksum(uint8_t* buf);
+    uint16_t computeChecksum(uint8_t* buf) const;
 };
 
 #endif // NAVIGATION_PROTOCOL_MESSAGE

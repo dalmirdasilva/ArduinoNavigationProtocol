@@ -7,3 +7,7 @@ GyroscopeMessage::GyroscopeMessage()
     payload = (uint8_t *) &_payload;
     flags = NAVIGATION_PROTOCOL_GYROSCOPE_MESSAGE_FLAGS;
 }
+
+GyroscopeMessage::Payload *GyroscopeMessage::getPayload() {
+    return &_payload;
+}

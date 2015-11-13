@@ -7,3 +7,7 @@ GpsMessage::GpsMessage() :
     payload = (uint8_t *) &_payload;
     flags = NAVIGATION_PROTOCOL_GPS_MESSAGE_FLAGS;
 }
+
+GpsMessage::Payload *GpsMessage::getPayload() {
+    return &_payload;
+}

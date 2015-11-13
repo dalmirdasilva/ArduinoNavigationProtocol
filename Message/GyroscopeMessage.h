@@ -8,12 +8,21 @@
 class GyroscopeMessage: public Message {
 
     struct Payload {
+
         unsigned char x;
+
+        Payload() :
+                x(0) {
+        }
+
+
     } _payload;
 
 public:
 
     GyroscopeMessage();
+
+    Payload *getPayload();
 };
 
 #endif // NAVIGATION_PROTOCOL_GYROSCOPE_MESSAGE
