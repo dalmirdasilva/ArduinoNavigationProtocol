@@ -3,19 +3,18 @@
 #ifndef NAVIGATION_PROTOCOL_ACK_MESSAGE
 #define NAVIGATION_PROTOCOL_ACK_MESSAGE
 
-#define NAVIGATION_PROTOCOL_ACK_MESSAGE_FLAGS           0x00
+#define NAVIGATION_PROTOCOL_CONN_MESSAGE_FLAGS           NAVIGATION_PROTOCOL_MESSAGE_FLAG_NEED_ACK
 
-class AckMessage: public Message {
+class ConnMessage: public Message {
 
     struct Payload {
 
         uint8_t at;
-        uint8_t ackedId;
 
     public:
 
         Payload() :
-                ackedId(0), at(0) {
+                at(0) {
         }
 
         uint8_t getAt() const {
@@ -25,19 +24,11 @@ class AckMessage: public Message {
         void setAt(uint8_t at) {
             this->at = at;
         }
-
-        uint8_t getAckedId() const {
-            return ackedId;
-        }
-
-        void setAckedId(uint8_t ackedId) {
-            this->ackedId = ackedId;
-        }
     } _payload;
 
 public:
 
-    AckMessage(uint8_t ackedId);
+    ConnMessage();
 
     Payload *getPayload();
 };

@@ -36,7 +36,13 @@
 
 class Message {
 
+private:
+
+    static uint8_t _id;
+
 protected:
+
+    uint8_t id;
 
     uint8_t type;
 
@@ -53,7 +59,12 @@ public:
     };
 
     enum Type {
-        ACK_MESSAGE_TYPE = 1, GPS_MESSAGE_TYPE = 2, GYROSCOPE_MESSAGE_TYPE = 3, SYS_STATUS_MESSAGE_TYPE = 4, RC_RAW_MESSAGE_TYPE = 5
+        ACK_MESSAGE_TYPE = 1,
+        GPS_MESSAGE_TYPE = 2,
+        GYROSCOPE_MESSAGE_TYPE = 3,
+        SYS_STATUS_MESSAGE_TYPE = 4,
+        RC_RAW_MESSAGE_TYPE = 5,
+        CONN_MESSAGE_TYPE = 6
     };
 
     Message(uint8_t type);

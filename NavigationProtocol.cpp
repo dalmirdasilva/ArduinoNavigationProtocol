@@ -10,11 +10,13 @@ NavigationProtocol::NavigationProtocol(Stream *stream, void (*fn)(Message *messa
 }
 
 uint8_t NavigationProtocol::connect() {
-    return 0;
+    ConnMessage message();
+    uint8_t sent = sendMessage((Message *) &message);
+    return sent;
 }
 
 uint8_t NavigationProtocol::isConnected() {
-    return 0;
+    return connected;
 }
 
 uint8_t NavigationProtocol::sendMessage(Message *message) {
@@ -34,4 +36,10 @@ void NavigationProtocol::registerMessageReceivedHandler(void (*fn)(Message *mess
 
 void NavigationProtocol::onInterrupt() {
 
+}
+
+void NavigationProtocol::parseIncommingStream() {
+    while(stream->available()) {
+
+    }
 }

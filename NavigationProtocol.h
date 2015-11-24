@@ -24,4 +24,6 @@ public:
     uint8_t sendMessage(Message *message);
 
     void registerMessageReceivedHandler(void (*fn)(Message *message));
+
+    void parseIncommingStream();
 };

@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 Message::Message(uint8_t type) :
-        type(type), flags(0), payload(0), payloadSize(0) {
+    id(_id++), type(type), flags(0), payload(0), payloadSize(0) {
 }
 
 Message::~Message() {
@@ -38,7 +38,7 @@ uint8_t Message::unpack(uint8_t *buf) {
     }
     computedSum = computeChecksum(&buf[NAVIGATION_PROTOCOL_MESSAGE_PAYLOAD_OFFSET]);
     memcpy((uint8_t*) &sum, &buf[NAVIGATION_PROTOCOL_MESSAGE_PAYLOAD_OFFSET + payloadSize],
-            NAVIGATION_PROTOCOL_MESSAGE_CHECKSUM_SIZE);
+    NAVIGATION_PROTOCOL_MESSAGE_CHECKSUM_SIZE);
     if (computedSum != sum) {
         return UNPACK_CHECKSUM_MISMATCH;
     }

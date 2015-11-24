@@ -15,7 +15,6 @@ class GyroscopeMessage: public Message {
                 x(0) {
         }
 
-
     } _payload;
 
 public:
