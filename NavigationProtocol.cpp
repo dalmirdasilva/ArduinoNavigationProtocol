@@ -39,7 +39,19 @@ void NavigationProtocol::onInterrupt() {
 }
 
 void NavigationProtocol::parseIncommingStream() {
-    while(stream->available()) {
+    int available;
+    while((available = stream->available()) > 0) {
+        unsigned char buff[available];
+        int read = stream->readBytes(buff, available);
+        parseBuffer(buff, read);
+    }
+}
+
+void NavigationProtocol::parseBuffer(unsigned char *buff, int count) {
+    int i;
+    unsigned char c;
+    for (i = 0; i < count; i++) {
+        c = buff[i];
 
     }
 }

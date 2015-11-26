@@ -26,4 +26,8 @@ public:
     void registerMessageReceivedHandler(void (*fn)(Message *message));
 
     void parseIncommingStream();
+
+private:
+
+    void parseBuffer(unsigned char *buff, int count);
 };

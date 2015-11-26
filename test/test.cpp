@@ -4,15 +4,36 @@
 #include "../Message/SysStatusMessage.h"
 #include <stdio.h>
 
-int main() {
-    int i = 0;
-    uint8_t umpackResult;
+void assetTrue(bool v, const char *testName) {
+    if (v) {
+        printf("(*) %s PASSED.\n", testName);
+    } else {
+        printf("(F) %s FAILED.\n", testName);
+    }
+}
 
+void assetFalse(bool v, const char *testName) {
+    assetTrue(!v, testName);
+}
+
+void assetEquals(int v0, int v1, const char *testName) {
+    assetTrue(v0 == v1, testName);
+}
+
+void testRCRawMessage();
+void testSysStatusMessage();
+
+int main() {
+
+    testRCRawMessage();
+    testSysStatusMessage();
+    return 0;
+}
+
+void testRCRawMessage() {
+    uint8_t umpackResult;
     RCRawMessage m0 = RCRawMessage();
     RCRawMessage m1 = RCRawMessage();
-
-    SysStatusMessage m2 = SysStatusMessage();
-    SysStatusMessage m3 = SysStatusMessage();
 
     m0.getPayload()->setChannel1(101);
     m0.getPayload()->setChannel2(102);
@@ -23,33 +44,34 @@ int main() {
     m0.getPayload()->setChannel7(107);
     m0.getPayload()->setChannel8(108);
 
-    m2.getPayload()->setBatteryRemaining(109);
-    m2.getPayload()->setBatteryVoltage(110);
+    unsigned char buf[m0.getLength()];
+    m0.pack(buf);
+    umpackResult = m1.unpack(buf);
+
+    assetEquals(umpackResult, Message::UNPACK_SUCCESS, "Unpack result");
+    assetEquals((int) m1.getPayload()->getChannel1(), 101, "getChannel1");
+    assetEquals((int) m1.getPayload()->getChannel2(), 102, "getChannel2");
+    assetEquals((int) m1.getPayload()->getChannel3(), 103, "getChannel3");
+    assetEquals((int) m1.getPayload()->getChannel4(), 104, "getChannel4");
+    assetEquals((int) m1.getPayload()->getChannel5(), 105, "getChannel5");
+    assetEquals((int) m1.getPayload()->getChannel6(), 106, "getChannel6");
+    assetEquals((int) m1.getPayload()->getChannel7(), 107, "getChannel7");
+    assetEquals((int) m1.getPayload()->getChannel8(), 108, "getChannel8");
+}
+
+void testSysStatusMessage() {
+    uint8_t umpackResult;
+    SysStatusMessage m0 = SysStatusMessage();
+    SysStatusMessage m1 = SysStatusMessage();
+
+    m0.getPayload()->setBatteryRemaining(109);
+    m0.getPayload()->setBatteryVoltage(110);
 
     unsigned char buf[m0.getLength()];
     m0.pack(buf);
     umpackResult = m1.unpack(buf);
-    if (umpackResult != Message::UNPACK_SUCCESS) {
-        printf("Error. umpachResult: %d\n", umpackResult);
-    }
 
-    unsigned char buf2[m2.getLength()];
-    m2.pack(buf2);
-    umpackResult = m3.unpack(buf2);
-    if (umpackResult != Message::UNPACK_SUCCESS) {
-        printf("Error. umpachResult: %d\n", umpackResult);
-    }
-
-    printf("getChannel1: %d\n", m1.getPayload()->getChannel1());
-    printf("getChannel3: %d\n", m1.getPayload()->getChannel2());
-    printf("getChannel3: %d\n", m1.getPayload()->getChannel3());
-    printf("getChannel4: %d\n", m1.getPayload()->getChannel4());
-    printf("getChannel5: %d\n", m1.getPayload()->getChannel5());
-    printf("getChannel6: %d\n", m1.getPayload()->getChannel6());
-    printf("getChannel7: %d\n", m1.getPayload()->getChannel7());
-    printf("getChannel8: %d\n", m1.getPayload()->getChannel8());
-
-    printf("setBatteryRemaining: %d\n", m3.getPayload()->getBatteryRemaining());
-    printf("setBatteryVoltage: %d\n", m3.getPayload()->getBatteryVoltage());
-    return 0;
+    assetEquals(umpackResult, Message::UNPACK_SUCCESS, "Unpack result");
+    assetEquals((int) m1.getPayload()->getBatteryRemaining(), 109, "getBatteryRemaining");
+    assetEquals((int) m1.getPayload()->getBatteryVoltage(), 110, "getBatteryVoltage");
 }

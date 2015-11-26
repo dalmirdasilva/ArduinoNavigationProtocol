@@ -57,3 +57,5 @@ uint16_t Message::computeChecksum(uint8_t* buf) const {
     }
     return sum;
 }
+
+uint8_t Message::_id = 0;
