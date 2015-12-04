@@ -9,7 +9,7 @@ class GyroscopeMessage: public Message {
 
     struct Payload {
 
-        unsigned char x;
+        uint8_t x;
 
         Payload() :
                 x(0) {

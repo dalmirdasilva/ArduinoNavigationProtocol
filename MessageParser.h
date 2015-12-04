@@ -18,9 +18,9 @@ class MessageParser {
 
     Stream *stream;
 
-    void (*fn)(Message *message);
-
     ParserState state;
+
+    void (*fn)(Message *message);
 
     unsigned int receivedBufferPointer;
 

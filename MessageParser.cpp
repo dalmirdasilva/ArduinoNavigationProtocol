@@ -62,7 +62,9 @@ void MessageParser::parseByte(unsigned char b) {
         break;
     }
     if (nextState == ParserState::READY) {
-        notifyMessageParsed(NULL);
+        Message *message = instantiateParsedMessage();
+        notifyMessageParsed();
     }
     state = nextState;
 }
+
